@@ -1,0 +1,142 @@
+
+{% extends 'layout.html'%}
+{% block title %}数据库连接{% endblock %}
+{% block header %}
+<style type="text/css">
+    .search-list{
+        padding: 20px;
+    }
+    .form-group{
+        margin-right: 25px;
+    }
+    .table{
+        margin-top: 10px;
+    }
+    td{
+       vertical-align: middle; 
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="search-list">
+   <div class="form-inline">
+        <div class="form-group">
+            <label>Location</label>
+            <select class="form-control" id="provinces">
+                <option value="0"></option>
+                {% for province in provinces %}
+                <option value="{{province.id}}">{{province.name}}</option>
+                {% endfor %} 
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Industry</label>
+            <select class="form-control" id="industry">
+                <option value="0"></option>
+                {% for degree in ['电子商务','社交网络','广告营销','游戏动漫','智能硬件','媒体','工具软件','生活消费','金融','医疗健康','企业服务','旅游户外','房产家居','文体艺术','教育培训','汽车交通','其他']%}
+                <option value="{{loop.index}}">{{degree}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-warning" id="search">Search</button>
+        </div>
+    </div> 
+</div>
+<!--<div class="form-group">
+    <button type="submit" class="btn btn-warning" style="margin-left:20px;" id="newPartner">新建寻找合伙人信息</button>
+</div> --!>
+<div style="padding-left:20px;">
+    <table class="table table-striped">
+        <thead>
+           <tr>
+                <th>公司</th>
+                <th>链接</th>
+                <th>创始人</th>
+                <th>行业</th>
+                <th>所在地</th>
+                <th>解决的需求和目标人群</th>
+            </tr> 
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div> 
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    $(function () {
+      $('[data-toggle="popover"]').popover();
+    })
+    $('#provinces').on('change', function(){
+        $.ajax({
+            url:'/get_universities',
+            dataType:'html',
+            data: {provinces_id: $(this).find('option:selected').val()}
+        })
+        .done(function(data){
+            $('#universities').html(data);
+        })
+        .fail(function(err){
+
+        })
+    });
+    $('#newPartner').on('click', function(){
+        window.location.href = '/new_partner';
+    });
+    $('#search').on('click', function(){
+        var postData = {};
+        postData.provinces_id = $('#provinces option:selected').val();
+        postData.industry_id = $('#industry option:selected').val();
+        console.log('search-->postData', postData);
+        $.ajax({
+            url:'/clevel/search_company',
+            dataType:'json',
+            type: 'post',
+            data: postData
+        })
+        .done(function(data){
+            var infos = data.ret;
+            var html = '';
+            for(var i=0; i<infos.length; i++){
+                data_content = "data-content='"+'<div><textarea class="form-control" id="description" value="" style="margin-bottom:10px;"></textarea><button type="submit" class="btn btn-warning sendMessage" id="sendMessage" data-id='+infos[i].user_id+'>Send</button><button class="btn btn-warning cancelPopover" style="margin-left:5px" id="cancelPopover">Cancel</button></div>'+"'";
+                html += '<tr><td><a href="/get_my_company?user_id='+infos[i].user_id+'"><img src="/static/image/' + infos[i].logo_name + '"></a></td><td>'+infos[i].company_url+'</td><td>'+infos[i].co_name+'</td><td>'+infos[i].industry+'</td><td>'+infos[i].provinces+'</td><td>'+infos[i].target+"</td><td><button type='button' class='btn btn-success popover-modal' data-container='body' id='popover' data-toggle='popover' data-placement='bottom' data-html='true'"+data_content+" name='receiver' value="+infos[i].user_id+">Message</button></td></tr>";
+            }
+            $('table').find('tbody').html(html);
+            $('[data-toggle="popover"]').popover();
+            $('.popover-modal').on('shown.bs.popover',function(){
+                $('.sendMessage').on('click', function(e){
+                    var receiver = $(e.target).data('id'),
+                        description = $(e.target).parent('div').find('#description').val();
+                    $.ajax({
+                        url: '/clevel/send_user_message',
+                        type: 'post',
+                        dataType: 'json',
+                        data:{ receiver: receiver,description:description}
+
+                    })
+                    .done(function(data){
+                        if(data.ret == 0){
+                            alert('发送消息成功!');
+                            window.location.href = '/database'
+                        }else{
+                            alert('发送消息失败');
+                        }
+
+                    })
+                    .fail(function(err){
+
+                    })
+            });
+            $('.cancelPopover').on('click', function(){
+                    $('.popover-modal').popover('hide');
+                });
+            })
+        })
+        .fail(function(err){
+
+        })
+    })
+ $('#search').trigger('click');
+</script>
+{% endblock %}

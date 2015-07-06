@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    {% block header %}{% endblock %}
+</head>
+<body>
+    <div class="main">
+        <nav>
+            <div class="left">
+                <img src="../static/image/app.png">
+                <span class="title">酋长网,欢迎{{user_name}}</span> 
+            </div>
+            <div class="right">
+                <a href="/home_page">首页</a>
+                <a href="/message">信息</a>
+                <a href="/get_my_profile">主页</a>
+		<a href="/get_my_company">公司</a>
+                <a href="/clevel/logout">退出</a>
+                <img style="width:50px;height:50px" src="../static/image/{{logo_name}}">
+            </div>
+        </nav>
+       <!-- <div class="content"> -->
+            {% block body %}{% endblock %}
+            <div class="push"></div>
+      <!--  </div> -->
+        
+    </div>
+    <footer>
+        <div class="footer-content">
+        <div class="col-md-4">
+            <p>C-Level</p>
+            <ul>
+                <li>About Us</li>
+                <li>Join Us</li>
+                <li><a href="/contact_us">Contact Us</a></li>
+                
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <p>Commercialization</p>
+            <ul>
+                <li><a href="/contact_us">Advertiser</a></li>
+                <li><a href="/contact_us">Partnership</a></li>
+                <li><a href="/contact_us">Investment</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <p>Policy</p>
+            <ul>
+                <li>User Agreement</li>
+                <li>Privacy Policy</li>
+            </ul>
+        </div>
+    </div>
+    </footer>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+{% block scripts %}{% endblock %}
+</html>

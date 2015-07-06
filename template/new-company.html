@@ -1,0 +1,89 @@
+{% extends 'layout.html'%}
+{% block title %}新建合伙人{% endblock %}
+{% block header %}
+<style type="text/css">
+    ul{
+        list-style: none;
+    }
+    .ul-left{
+        margin-top: 5px;
+        box-sizing:border-box;
+        padding-left: 200px;
+    }
+    .ul-right{
+        padding-left: -100px;
+        margin-top: 5px;
+    }
+    td{
+       vertical-align: middle; 
+    }
+    .form-control{
+        width: 500px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<ul class="ul-left col-md-6">
+    <li>
+        <label>公司名称</label>
+        <input class="form-control" type="text"/>
+    </li>
+    <li>
+        <label>公司官网链接</label>
+       <input class="form-control" type="text"/>
+    </li>
+    <li>
+        <label>公司产品链接</label>
+        <input class="form-control" type="text"/>
+    </li>
+    <li>
+        <label>所在地</label>
+        <input class="form-control" type="text"/>
+    </li>
+    <li>
+        <label>所属行业</label>
+        <input class="form-control" type="text"/>
+    </li>
+    <li>
+        <label>解决的需求和目标人群</label>
+        <input class="form-control" type="text"/>
+    </li>
+     <li>
+        <label>公司介绍</label>
+        <input class="form-control" type="text"/>
+    </li>
+</ul>
+<ul class="ul-right col-md-6">
+    <li>
+        <label>公司LOGO</label>
+        <img/>
+    </li>
+    <li>
+        <label>创始人</label>
+        <input class="form-control" type="text"/>
+    </li>
+    <li>
+        <label>联合创始人1</label>
+        <input class="form-control" type="text"/>
+    </li>
+    <li>
+        <label>联合创始人2</label>
+        <input class="form-control" type="text"/>
+    </li>
+    <li>
+        <label style="display:block">联合创始人3</label>
+        <input class="form-control"/>
+    </li>
+    <li>
+        <label style="display:block">商业计划书</label>
+        <a>Attach here</a>
+    </li>
+     <li>
+       <label></label>
+       <button class="btn btn-warning" style="margin-left: 110px;margin-top: 10px;">Submit</button>
+    </li>
+</ul>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+

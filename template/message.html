@@ -1,0 +1,35 @@
+{% extends 'layout.html'%}
+{% block title %}messages{% endblock %}
+{% block header %}
+<style>
+.content-ul ul{
+  list-style:none;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
+.content-ul ul label{
+    font-weight: normal;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="content-ul">
+  <ul class="col-md-12">
+    <li>
+        <label class="col-md-3">Image</label>
+        <label class="col-md-3">Name</label>
+        <span class="col-md-6">Message</span>
+    </li>
+    {% for message in messages %}
+    <li class="col-md-12">
+        <label class="col-md-3"><img src="../static/image/{{message.logo_name}}" style="width:50px;height:50px;"></label>
+        <label class="col-md-3"><a href="/message_detail?user_id={{message.user_id}}">{{message.user_name}}</a></label>
+        <label class="col-md-6">{{message.message}}</label>
+    </li>
+    {% endfor %}
+</ul>
+</div>
+
+{% endblock %}
+{% block scripts %}{% endblock %}

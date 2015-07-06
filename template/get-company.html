@@ -1,0 +1,105 @@
+{% extends 'layout.html'%}
+{% block title %}数据库连接{% endblock %}
+{% block header %}
+<style type="text/css">
+    ul{
+        list-style: none;
+    }
+    .ul-left{
+        margin-top: 5px;
+        box-sizing:border-box;
+        padding-left: 450px;
+    }
+    td{
+       vertical-align: middle; 
+    }
+    .form-control{
+        width: 500px;
+    }
+    .logo-name{
+        width: 150px;
+        height: 150px;
+        padding: 20px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<ul class="ul-left">
+    <li>
+        <label>Logo: </label>
+        <img class="logo-name" src="../static/image/{{logo_name}}"></img>
+    </li>
+    <li>
+        <label>公司名称: </label>
+        <label>{{name}}</label>
+    </li>
+    <li>
+        <label>公司官网链接: </label>
+        <label>{{company_url}}</label>
+    </li>
+    <li>
+        <label>公司产品链接: </label>
+        <label>{{product_url}}</label>
+    </li>
+    <li>
+        <label>所在地: </label>
+        <label>{{provinces}}</label>
+    </li>
+    <li>
+        <label>所属行业: </label>
+        <label>{{industry}}</label>
+    </li>
+    <li>
+        <label>解决的需求和目标人群: </label>
+        <label>{{target}}</label>
+    </li>
+    <li>
+        <label>公司介绍: </label>
+        <label>{{description}}</label>
+    </li>
+    <li>
+        <label>创始人: </label>
+        <label>{{co_name}}</label>
+    </li>
+    <li>
+        <label>联合创始人1: </label>
+        <label>{{co_name_1}}</label>
+    </li>
+    <li>
+        <label>联合创始人2: </label>
+        <label>{{co_name_2}}</label>
+    </li>
+    <li>
+        <label>联合创始人3: </label>
+        <label>{{co_name_3}}</label>
+    </li>
+    <li>
+        <label>合伙需求: </label>
+        <label>{{company_partner}}</label>
+    </li>
+    <li>
+        <label>合伙需求描述: </label>
+        <label>{{company_partner_description}}</label>
+    </li>
+    <li>
+        <label>兼职需求: </label>
+        <label>{{company_job}}</label>
+    </li>
+    <li>
+        <label>兼职需求描述: </label>
+        <label>{{company_job_description}}</label>
+    </li>
+     <li>
+       <label></label>
+       <button class="btn btn-warning" style="margin-left: 110px;margin-top: 10px;" id="edit" data-id="{{user_id}}">Edit Company</button>
+    </li>
+</ul>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+$('#edit').on('click', function(){
+    window.location.href = '/new_partner';
+});
+</script>
+{% endblock %}
+

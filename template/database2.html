@@ -1,0 +1,125 @@
+{% extends 'layout.html'%}
+{% block title %}idea database{% endblock %}
+{% block header %}
+<style type="text/css">
+    .search-list{
+        padding: 20px;
+    }
+    .form-group{
+        margin-right: 25px;
+    }
+    .table{
+        margin-top: 10px;
+    }
+    td{
+       vertical-align: middle; 
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="search-list">
+   <div class="form-inline">
+        <div class="form-group">
+            <label>Location</label>
+            <select class="form-control" id="provinces">
+                <option value="0"></option>
+                {% for province in provinces %}
+                <option value="{{province.id}}">{{province.name}}</option>
+                {% endfor %} 
+            </select>
+        </div>
+        <div class="form-group">
+            <label>University</label>
+            <select class="form-control" id="universities">
+                <option value="0"></option>
+                {% for university in universities %}
+                <option value="{{university.id}}">{{university.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Idea category</label>
+            <select class="form-control" id="category">
+                {% for degree in ['电子商务','社交APP、网站','广告','游戏','动漫','软件','硬件','科技','媒体','金融','医学','旅游','艺术','音乐','教育','电子','文学','语言','家居','其他']%}
+                <option value="{{loop.index}}">{{degree}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Look for Partner</label>
+            <select class="form-control" id="majors">
+                <option value="0"></option>
+                {% for major in majors %}
+                <option value="{{major.id}}">{{major.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-warning" id="search">Search</button>
+        </div>
+    </div> 
+</div>
+<div style="padding-left:20px;">
+<table class="table table-striped">
+    <thead>
+       <tr>
+            <th>image</th>
+            <th>Name</th>
+            <th>University</th>
+            <th>Degree</th>
+            <th>Major</th>
+            <th>Description</th>
+            <th></th>
+        </tr> 
+    </thead>
+    <tbody>
+    </tbody>
+</table>  
+</div> 
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    $('#provinces').on('change', function(){
+        $.ajax({
+            url:'/get_universities',
+            dataType:'html',
+            data: {provinces_id: $(this).find('option:selected').val()}
+        })
+        .done(function(data){
+            $('#universities').html(data);
+        })
+        .fail(function(err){
+
+        })
+    });
+    $('#search').on('click', function(){
+        var postData = {};
+        postData.provinces_id = $('#provinces option:selected').val();
+        postData.university_id = $('#universities option:selected').val();
+        postData.idea_category_id = $('#category option:selected').val();
+        postData.major_id = $('#majors option:selected').val();
+        console.log('search-->postData', postData);
+        $.ajax({
+            url:'/clevel/search_idea',
+            dataType:'json',
+            type: 'post',
+            data: postData
+        })
+        .done(function(data){
+            var infos = data.ret;
+            var html = '';
+            for(var i=0; i<infos.length; i++){
+
+                html += '<tr><td><a href="/get_my_profile?user_id='+infos[i].user_id+'"><img style="width:50px;height:50px" src="/static/image/'+infos[i].logo_name +'"/></a></td><td>'+infos[i].user_name+'</td><td>'+infos[i].university+'</td><td>'+infos[i].degree+'</td><td>'+infos[i].major+'</td><td>'+infos[i].idea_description+'</td><td><a class="btn btn-success" style="margin-left:5px" href="/comments?idea_id=' + infos[i].idea_id +'"' +'>Comments</a></td></tr>';
+            }
+            $('table').find('tbody').html(html);
+        })
+        .fail(function(err){
+
+        })
+    })
+ $('#search').trigger('click');
+</script>
+{% endblock %}
+
+

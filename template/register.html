@@ -1,0 +1,260 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    {% block header %}{% endblock %}
+</head>
+<style type="text/css">
+    .register-ul{
+      list-style: none;
+    }
+    .register-ul li{
+      padding: 5px 0px;
+    }
+    img{
+        margin-bottom: 10px;
+        display: block;
+    }
+    .right{
+      top: 40px !important;
+      right: 30px !important;
+    }
+    .right label, .right button{
+      margin-left: 15px;
+    }
+
+    .forget-pas{
+      font-size: 14px;
+      text-decoration: underline;
+      cursor: default;
+      position: absolute;
+      top: -25px;
+      right: 100px;
+      color: rgb(62,108,175);
+    }
+
+    .title-hint{
+      font-weight: bolder;
+      text-align: center;
+      font-size: 18px;
+      margin:10px 0px;
+    }
+
+    .register-img{
+      width:50%;
+      height:400px;
+      background-color: rgb(62,108,175);
+      float: left;
+      margin-top: 12px;
+      color: #fff;
+      text-align: center;
+      padding: 60px;
+      line-height:40px;
+      font-size:18px;
+      vertical-align: middle;
+      box-sizing:border-box;
+    }
+
+    .div-content{
+      text-align: center;
+      display: block;
+      overflow: hidden;
+      margin: 0px auto;
+      width: 70%;
+      height: 100%;
+    }
+    .register-content{
+      float: left;
+      text-align: left;
+      width: 50%;
+    }
+
+    .form-control{
+      width: 200px;
+    }
+    .register-ul label{
+      width: 40%;
+    }
+    input,select,img{
+      display: inline-block !important;
+      width: 60%;
+    }
+</style>
+<body>
+    <div class="main">
+        <nav>
+            <div class="left">
+                <img src="../static/image/app.png">
+                <span class="title">酋长网</span> 
+            </div>
+            <div class="right">
+              <div class="form-inline">
+                <div class="form-group">
+                  <label>Email Address: </label>
+                  <input type="email" class="form-control" id="loginEmail" name="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                  <label>Password: </label>
+                  <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password">
+                </div>
+                <button class="btn btn-warning" id="login">Sign In</button>
+                <span class="forget-pas" id="registerAgain">Forget your password?</span>
+              </div>
+            </div>
+        </nav>
+        <div class="div-content">
+          <div class="title-hint">Connect, Share ideas and Discover opportunities</div>
+          <div class="register-img">"Let your imagination fly,and do whatever you want to be yourself" --We want to change the world!<br/>“放飞你的想象，做自己想成为的人” --我们要改变这个世界!</div>
+          <div class="register-content" id="form">
+            <ul class="register-ul">
+              <li>
+                <label for="firstName" class="control-label">通道</label>
+                <select name="status" id="status" class="form-control">
+                  <option>学生通道</option>
+                  <option> 社会人通道</option>
+                </select>
+              </li>
+              <li>
+                <label for="firstName" class="control-label">First Name(*)</label>
+                <input type="text" class="form-control" id="firstName" name="first_name" value="">
+              </li>
+              <li>
+                <label for="lastName" class="control-label">Last Name(*)</label>
+                <input type="text" class="form-control" id="lastName" name="last_name" value="">
+              </li>
+              <li>
+                <label for="emailRegister" class="control-label">Email Registration(*)</label>
+                <input type="email" class="form-control" id="email" name="email" value="">
+              </li>
+              <li>
+                <label for="password" class="control-label">Password(*)</label>
+                <input type="password" class="form-control" id="password" name="password" value="">
+              </li>
+              <li>
+                <label for="confirmPassword" class="control-label">Confirm Password(*)</label>
+                <input type="password" class="form-control" id="confirmPassword">
+              </li>
+              <li style="overflow:hidden;width:100%">
+                <label for="addAccount" class="control-label">Wechat account</label>
+                <img src="/static/image/qrcode_for_gh_45d68743a0e3_258.jpg" style="width:30%;height:30%"/>
+              </li>
+              <li style="overflow:hidden;text-align:center">
+                <button type="button" class="btn btn-default" id="register" style="width:40%">Join in</button>
+              </li>
+            </ul>
+          </div>
+          <div class="push"></div>
+          
+      </div>
+    </div>
+    <footer>
+      <div class="footer-content">
+        <div class="col-md-4">
+            <p>C-Level</p>
+            <ul>
+                <li>About Us</li>
+                <li>Join Us</li>
+                <li><a href="/contact_us">Contact Us</a></li>
+                
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <p>Commercialization</p>
+            <ul>
+                <li>Advertiser</li>
+                <li>Partnership</li>
+                <li>Investment</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <p>Policy</p>
+            <ul>
+                <li>User Agreement</li>
+                <li>Privacy Policy</li>
+            </ul>
+        </div>
+      </div>
+    </footer>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $('#registerAgain').on('click', function(){
+        window.location.href = '/password';
+    });
+    $('#login').on('click', function(){
+        if($('#loginEmail').val()==''){
+            alert('用户名不能为空');
+        }else if($('#loginPassword').val()==''){
+            alert('密码不能为空');
+        }else{
+           $.ajax({
+                url: '/clevel/user_sign_up',
+                type: 'post',
+                dataType: 'json',
+                data:{email: $('#loginEmail').val(),password: $('#loginPassword').val()}
+            })
+            .done(function(data){
+                if(data.ret==0){
+                    window.location.href = '/home_page'
+                }else{
+                    alert('用户名或者密码不正确');
+                }
+            })
+            .fail(function(err){
+                
+            }) 
+        }
+    });
+  $('#email').on('blur', function(){
+      var reg = new RegExp('\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*');
+      if(!reg.test($('#email').val())){
+        alert('请输入正确的邮箱');
+      }
+  });
+  $('#register').on('click', function(){
+        var reg = new RegExp('\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*');
+        if(!$('#firstName').val()||!$('#lastName').val()||!$('#email').val()||!$('#password').val()){
+            alert('有必填项没有填');
+            event.preventDefault();
+            return;
+        }if(!reg.test($('#email').val())){
+          alert('请输入正确的邮箱地址!');
+          return;
+        }else{
+            if($('#password').val()!==$('#confirmPassword').val()){
+                alert('两次密码输入不一致');
+                event.preventDefault();
+                return;
+            }else{
+                  var postData = {};
+                  postData.first_name = $('#firstName').val()
+                  postData.last_name = $('#lastName').val()
+                  postData.email = $('#email').val()
+                  postData.password = $('#password').val()
+                 $.ajax({
+                    url: '/clevel/register_on',
+                    type: 'post',
+                    dataType: 'json',
+                    data: postData
+                })
+                .done(function(data){
+                    if(data.ret==0){
+                        window.location.href = '/home_page';
+                    }else{
+                        alert('此邮箱已被注册过');
+                    }
+                })
+                .fail(function(err){
+                    alert(err);
+                })
+            }
+        }
+
+       
+    })
+</script>
+</html>

@@ -1,0 +1,63 @@
+{% extends 'layout.html'%}
+{% block title %}首页{% endblock %}
+{% block header %}
+<style type="text/css">
+    .register{
+        margin: 0 30%;
+    }
+    .form-group{
+        padding: 17px 0px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+    <div class="form-horizontalm register" id="form">
+      <div class="form-group">
+        <label for="companyName" class="col-sm-3 control-label">公司名称</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" id="companyName" name="company_name" value="">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="companyWebsite" class="col-sm-3 control-label">公司网址</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" id="companyWebsite" name="company_website" value="">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="bussiness" class="col-sm-3 control-label">所属行业</label>
+        <div class="col-sm-7">
+          <input type="email" class="form-control" id="bussiness" name="bussiness" value="">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="demand" class="col-sm-3 control-label">解决的需求和目标人群</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" id="demand" name="demand" value="">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="logo" class="col-sm-3 control-label">公司LOGO</label>
+        <div class="col-sm-7">
+           <img src=""/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="backBone" class="col-sm-3 control-label">公司骨干</label>
+        <div class="col-sm-7">
+           <input type="text" class="form-control" id="backBone" name="back_bone" value=""/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="plan" class="col-sm-3 control-label">创业计划书</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" id="plan" name="plan" value=""/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-7">
+          <button type="button" class="btn btn-default" id="submit">submit</button>
+        </div>
+      </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,283 @@
+{% extends 'layout.html'%}
+{% block title %}数据库连接{% endblock %}
+{% block header %}
+<style type="text/css">
+    ul{
+        list-style: none;
+    }
+    li{
+        margin-bottom: 5px;
+    }
+    .ul-left{
+        margin-top: 5px;
+        box-sizing:border-box;
+        padding-left: 200px;
+    }
+    .ul-right{
+        padding-left: -100px;
+        margin-top: 5px;
+        margin-left: 10px;
+    }
+    td{
+       vertical-align: middle; 
+    }
+    .form-control{
+        width: 500px;
+    }
+    #logo{
+        opacity: 0;
+        position: absolute;
+        width: 135px;
+        text-indent: inherit;
+        border: none;
+        top: 120px;
+        left: 35%;
+    }
+    .gym-logo{
+        width: 150px;
+        height: 150px;
+        vertical-align: middle;
+        padding: 1px;
+        background: #eef3f7;
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
+    }
+    .fake{
+        width: 150px;
+        height: 45px;
+        line-height: 45px;
+        position: absolute;
+        top: 120px;
+        left: 35%;
+        background: #fff;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<ul class="ul-left">
+    <li>
+        <label>公司名称</label>
+        <input class="form-control" type="text" id="name" value="{{name}}"/>
+    </li>
+    <li>
+        <label>公司官网链接</label>
+       <input class="form-control" type="text" id="company_url" value="{{company_url}}"/>
+    </li>
+    <li>
+        <label>公司产品链接</label>
+        <input class="form-control" type="text" id="product_url" value="{{product_url}}"/>
+    </li>
+    <li>
+        <label>所在地</label>
+        <select class="form-control" id="provinces_id" value="{{provinces_old}}">
+            {% for province in provinces_old %}
+            <option value="{{province.id}}">{{province.name}}</option>
+            {% endfor %}
+        </select>
+    </li>
+    <li>
+        <label>所属行业</label>
+    	<select class="form-control" id="industry_id" value="{{industry}}">
+            {% for degree in ['电子商务','社交网络','广告营销','游戏动漫','智能硬件','媒体','工具软件','生活消费','金融','医疗健康','企业服务','旅游户外','房产家居','文体艺术','教育培训','汽车交通','其他']%}
+           <option value="{{loop.index}}">{{degree}}</option>
+           {% endfor %}
+        </select>
+    </li>
+    <li>
+        <label>解决的需求和目标人群</label>
+        <textarea rows="5" class="form-control" id="target" value="{{target}}"/> {{target}}</textarea>
+    </li>
+     <li>
+        <label>公司介绍</label>
+        <textarea rows="5" class="form-control" id="description" value="{{description}}"/>{{description}}</textarea>
+    </li>
+    <li>
+        <label>公司LOGO</label>
+        <form action="" enctype="mutipart/form-data" name="pictureform">
+            <img alt="暂无图片" class="gym-logo" id="preview" name="pic" src="../static/image/{{logo_name}}"/>
+            <input type="file" name="logo_name" id="logoName" accept="image/*" onchange="change()">
+        </form>
+    </li>
+    <li>
+        <label>创始人</label>
+        <input class="form-control" type="text" id="co_name" value="{{co_name}}"/>
+    </li>
+    <li>
+        <label>联合创始人1</label>
+        <input class="form-control" type="text" id="co_name_1" value="{{co_name_1}}"/>
+    </li>
+    <li>
+        <label>联合创始人2</label>
+        <input class="form-control" type="text" id="co_name_2" value="{{co_name_2}}"/>
+    </li>
+    <li>
+        <label style="display:block">联合创始人3</label>
+        <input class="form-control" type="text" id="co_name_3" value="{{co_name_3}}"/>
+    </li>
+    <li>
+        <label>合伙需求</label>
+        <select class="form-control" id="company_partner_id" value="{{company_partner}}">
+            {% for degree in ['产品','市场','运营','财务','人事','技术']%}
+           <option value="{{loop.index}}">{{degree}}</option>
+           {% endfor %}
+        </select>
+    </li>
+    <li>
+        <label>合伙需求描述</label>
+        <textarea rows="5" class="form-control" id="company_partner_description" value="{{company_partner_description}}">{{company_partner_description}}</textarea>
+    </li>
+    <li>
+        <label>兼职需求</label>
+        <select class="form-control" id="company_job_id" value="{{company_job}}">
+            {% for degree in ['产品','市场','运营','财务','人事','技术']%}
+           <option value="{{loop.index}}">{{degree}}</option>
+           {% endfor %}
+        </select>
+    </li>
+    <li>
+        <label>兼职需求描述</label>
+        <textarea rows="5" class="form-control" id="company_job_description" value="{{company_job_description}}">{{company_job_description}}</textarea>
+    </li>
+    <li>
+       <label></label>
+       <button class="btn btn-warning" style="margin-left: 110px;margin-top: 10px;" id="save">Submit</button>
+    </li>
+</ul>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+var gymLogo = '';
+$('#provinces').on('change', function(){
+    $.ajax({
+        url:'/get_universities',
+        dataType:'html',
+        data: {provinces_id: $(this).find('option:selected').val()}
+    })
+    .done(function(data){
+        $('#universities').html(data);
+    })
+    .fail(function(err){
+
+    })
+});
+
+$('#logoName').change(function () {
+    gymLogo = this.files[0];
+});
+
+function change(){
+    var pic = document.getElementById('preview');
+    var file = document.getElementById('logoName');
+    var fileType = file.value.substring(file.value.lastIndexOf('.')+1).toLowerCase();
+
+    //判断在各大浏览器中能够显示的图片类型
+    if(fileType!='png'&&fileType!='jpg'&&fileType!='bmp'&&fileType!='jpeg'){
+        alert('文件必须为png、jpg或者jpeg的格式');
+    }
+    //IE浏览器下
+    if(document.all){
+        file.select();
+        var reallocalpath = document.selection.createRange().text;
+        var ie6 = /msie 6/i.test(navigator.userAgent);
+        //IE6浏览器设置img的src为本地路径可以直接显示图片
+        if(ie6){
+            pic.src = reallocalpath;
+        }else{
+            //非IE版本的浏览器由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+            pic.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod = 'image',src=\""+reallocalpath+"\")";
+            //设置img的src为base64编码的透明图片，取消显示浏览器默认图片
+            pic.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+        }
+    }else{
+        html5Reader(file);
+    }
+}
+
+//其他浏览器下
+function html5Reader(file){
+    file = file.files[0];
+    var reader = new FileReader();
+    if( file.size > 2*1024*1024 ){  //用size属性判断文件大小不能超过2M 
+        alert( "你上传的文件太大了！" );
+    }else{
+        reader.readAsDataURL(file);
+    }
+    reader.onload = function(e){
+        var pic = document.getElementById('preview');
+        pic.src = this.result;
+    };
+}
+
+
+
+$('#save').on('click', function(){   
+    var postData = {}
+        form_data = new FormData(),
+        xhr = new XMLHttpRequest(); 
+    var responseText = '';
+    form_data.append('name',$('#name').val());
+    form_data.append('company_url',$('#company_url').val());
+    form_data.append('product_url',$('#product_url').val());
+    form_data.append('provinces_id',$('#provinces_id').val());
+    form_data.append('industry_id',$('#industry_id').val());
+    form_data.append('target',$('#target').val());
+    form_data.append('description',$('#description').val());
+    form_data.append('co_name',$('#co_name').val());
+    form_data.append('co_name_1',$('#co_name_1').val());
+    form_data.append('co_name_2',$('#co_name_2').val());
+    form_data.append('co_name_3',$('#co_name_3').val());
+    form_data.append('company_partner_id',$('#company_partner_id').val());
+    form_data.append('company_partner_description',$('#company_partner_description').val());
+    form_data.append('company_job_id',$('#company_job_id').val());
+    form_data.append('company_job_description',$('#company_job_description').val());
+    form_data.append('self_assessment',$('#selfAssessment').val());
+    form_data.append('contact',$('#contact').val());
+
+
+    if(gymLogo!==''){
+       if (!gymLogo.type.match('image.*')) {
+            alert('图片格式不对！');
+            return false;
+        }else{
+            form_data.append('logo', gymLogo, gymLogo.name);
+        }
+    }
+
+    var url = '/clevel/save_company';
+
+    xhr.open('POST', url, true);
+    console.log('xxxxxFormData',form_data);
+    xhr.onload = function(){
+        if (xhr.status === 200) {
+            responseText = JSON.parse(xhr.responseText);
+            if (responseText.ret === 0) {
+                 window.location.href = '/home_page'
+            } else {
+                alert('保存失败!');
+            }
+        } else {
+            alert('error');
+        }
+    };
+    xhr.send(form_data);
+
+    // $.ajax({
+    //     url:'/clevel/save_company',
+    //     dataType:'json',
+    //     type: 'post',
+    //     data: postData
+    // })
+    // .done(function(data){
+    //     if(data.ret==0){
+    //         window.location.href = '/home_page'
+    //     }
+    // })
+    // .fail(function(err){
+
+    // })   
+});
+</script>
+{% endblock %}
+

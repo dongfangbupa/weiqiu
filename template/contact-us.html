@@ -1,0 +1,59 @@
+{% extends 'layout.html'%}
+{% block title %}联系我们{% endblock %}
+{% block header %}
+<style type="text/css">
+select,input{
+    width: 300px !important;
+}
+</style>
+{% endblock %}
+{% block body %}
+<ul class="content-ul">
+    <li>
+        <label>Purpose</label>
+        <select class="form-control" id="name">
+            <option value="Advertiser">Advertise</option>
+            <option value="Partnership">Partnership</option>
+            <option value="Investment">Investment</option>
+            <option value="General Contact">General Contact</option>
+        </select>
+    </li>
+    <li>
+        <label>Your Email</label>
+        <input class="form-control" type="text" id="email"/>
+    </li>
+    <li>
+        <textarea class="form-control" type="text" style="margin-top: 10px" rows="10" id="description"></textarea>
+    </li>
+    <li>
+       <button class="btn btn-warning" style="margin-left: 110px;margin-top: 10px;" id="submit">Submit</button>
+    </li>
+</ul>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    $('#submit').on('click',function(){
+        if(!$('#name').val()||!$('#email').val()||!$('#description').val()){
+            alert('所有项必须填');
+            return;
+        }else{
+            $.ajax({
+                url: '/clevel/save_purpose',
+                type: 'post',
+                dataType: 'json',
+                data:{email: $('#email').val(),name: $('#name').val(),description:$('#description').val()}
+            })
+            .done(function(data){
+                if(data.ret==0){
+                    window.location.href = '/home_page'
+                }else{
+                   /* alert(data.msg);*/
+                }
+            })
+            .fail(function(err){
+                
+            }) 
+        }
+    });
+</script>
+{% endblock %}

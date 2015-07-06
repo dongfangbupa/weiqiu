@@ -1,0 +1,111 @@
+{% extends 'layout.html'%}
+{% block title %}my profile{% endblock %}
+{% block header %}
+<style type="text/css">
+    ul{
+        list-style: none;
+    }
+    .ul-left{
+        margin-top: 5px;
+        box-sizing:border-box;
+        padding-left: 450px;
+    }
+    td{
+       vertical-align: middle; 
+    }
+    .form-control{
+        width: 500px;
+    }
+    .logo-name{
+        width: 150px;
+        height: 150px;
+        padding: 20px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<ul class="ul-left">
+    <li>
+        <label>Logo: </label>
+        <img class="logo-name" src="../static/image/{{logo_name}}"></img>
+    </li>
+    <li>
+        <label>Status: </label>
+        <label>{% if status==0 %}在读学生{% else %}社会人士{% endif %}</label>
+    </li>
+    <li>
+        <label>Location: </label>
+        <label>{{provinces}}</label>
+    </li>
+    <li>
+        <label>University: </label>
+        <label>{{univs}}</label>
+    </li>
+    <li>
+        <label>Degree: </label>
+        <label>{{degree}}</label>
+    </li>
+    <li>
+        <label>Major: </label>
+        <label>{{major}}</label>
+    </li>
+    <li>
+        <label>Minor: </label>
+        <label>{{minor}}</label>
+    </li>
+    <li>
+        <label>Experience (Work, Internship, project, university clubs): </label>
+        <label>{{experience}}</label>
+    </li>
+    <li>
+        <label>Skills, Certificates, Awards: </label>
+        <label>{{skills}}</label>
+    </li>
+    <li>
+        <label>Hobbies: </label>
+        <label>{{hobbies}}</label>
+    </li>
+    <li>
+        <label>Self-Assessment: </label>
+        <label>{{self_assessment}}</label>
+    </li>
+    <li style="padding-top:10px;">
+        <label>Your Own Idea</label>
+        <ul>
+            <li>
+                <label>Idea Category: </label>
+                <label>{{category}}</label>
+            </li>
+             <li>
+                <label>Partner you look for: </label>
+                <label>{{partner}}</label>
+            </li>
+             <li>
+                <label>Idea Descriptin: </label>
+                <label>{{description}}</label>
+            </li>
+            <li>
+                <label>Public: </label>
+                <label>{% if idea_status==0 %}公开{% else %}未公开{% endif %}</label>
+            </li>
+        </ul>
+        
+    </li>
+    <li>
+        <label>Contact Info: </label>
+        <label>{{contact}}</label>
+    </li>
+     <li>
+       <label></label>
+       <button class="btn btn-warning" style="margin-left: 110px;margin-top: 10px;" id="edit" data-id="{{user_id}}">Edit Profile</button>
+    </li>
+</ul>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+$('#edit').on('click', function(){
+    window.location.href = '/my_profile';
+});
+</script>
+{% endblock %}
+

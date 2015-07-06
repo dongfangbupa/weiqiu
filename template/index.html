@@ -1,0 +1,103 @@
+{% extends 'layout.html'%}
+{% block title %}首页{% endblock %}
+{% block header %}
+    <style type="text/css">
+
+        .body-content{
+            padding: 0px 3% 0px 5%;
+            box-sizing: border-box;
+        }
+        .body-content ul{
+            list-style: none;
+            padding: 20px 10px;
+            box-sizing: border-box;
+        }
+        .body-content ul p{
+            text-align: center;
+            font-weight: bolder;
+        }
+        .body-content .li-title{
+            border-radius: 5px;
+            background-color: rgb(79,129,189);
+            height: 105px;
+            width: 253px;
+            border:1px solid rgb(79,129,189);
+            color:#fff;
+            cursor:pointer;
+            padding: 2px;
+            p{
+                font-size: 16px
+            }
+            div{
+                font-size: 14px;
+            }
+            
+        }
+        .body-content .title-img{
+            padding: 15px 25px;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+<div class="body-content">
+    <ul class="col-md-3">
+        <li class="li-title" id="database">
+            <p>Contact Database</p>
+            <div>You have an idea, and you want to find Co-founders.</div>
+        </li>
+        <li class="title-img">
+            <img src="../static/image/img1.png">
+        </li>
+    </ul>
+    <ul class="col-md-3">
+        <li class="li-title" id="database2">
+            <p>Ideas Database</p>
+            <div>You don’t have an idea but you can see others’.</div>
+        </li>
+        <li class="title-img">
+            <img src="../static/image/img2.png">
+        </li>
+    </ul>
+    <ul class="col-md-3">
+        <li class="li-title" id="partnerInfo">
+            <p>Micro-enterprise</p>
+            <div>You want to find Partners or you want to find startups to corporate.</div>
+        </li>
+        <li class="title-img">
+            <img src="../static/image/img3.png">
+        </li>
+    </ul>
+    <ul class="col-md-3">
+        <li class="li-title" id="companyInfo">
+            <p>Commercialization</p>
+            <div>Where you have opportunities to get funds from VCs, investors, etc.</div>
+        </li>
+        <li class="title-img">
+            <img src="../static/image/img4.png">
+        </li>
+    </ul>
+    <div class="push"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    $('.li-title').on('click', function(e){
+        switch( this.id){
+            case 'database':
+                window.location.href = '/database';
+                break;
+            case 'database2':
+                window.location.href = '/database2';
+                break;
+            case 'partnerInfo':
+                window.location.href = '/partner_info';
+                break;
+            case 'companyInfo':
+                window.location.href = '/company_info';
+                break;
+            default:
+                break;
+        }
+    });
+</script>
+{% endblock %}

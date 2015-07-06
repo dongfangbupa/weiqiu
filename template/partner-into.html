@@ -1,0 +1,71 @@
+{% extends 'layout.html'%}
+{% block title %}数据库连接{% endblock %}
+{% block header %}
+<style type="text/css">
+    .search-list{
+        padding: 20px;
+    }
+    .form-group{
+        margin-right: 25px;
+    }
+    .table{
+        margin-top: 10px;
+    }
+    td{
+       vertical-align: middle; 
+    }
+</style>
+{% endblock %}
+{% block body %}
+<form action="" class="search-list">
+   <div class="form-inline">
+        <div class="form-group">
+            <label>行业</label>
+            <select class="form-control" id="provinces">
+                <!-- {% for province in provinces %}
+                <option value="{{province.id}}">{{province.name}}</option>
+                {% endfor %} -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label>所在地</label>
+            <select class="form-control" id="universities">
+                <!-- {% for university in universities %}
+                <option value="{{university.id}}">{{university.name}}</option>
+                {% endfor %} -->
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-warning">Search</button>
+        </div>
+    </div> 
+</form>
+<div class="form-group">
+    <button type="submit" class="btn btn-warning">仙剑寻找合伙人信息</button>
+</div>
+<table class="table table-striped">
+    <thead>
+       <tr>
+            <th>公司</th>
+            <th>链接</th>
+            <th>创始人</th>
+            <th>行业</th>
+            <th>所在地</th>
+            <th>解决的需求和目标人群</th>
+        </tr> 
+    </thead>
+    <tbody>
+        <tr>
+            <td>xxxx</td>
+            <td>xxxxx</td>
+            <td>xxxxx</td>
+            <td>xxxxx</td>
+            <td>xxxxx</td>
+            <td>xxxxx</td>
+        </tr>
+    </tbody>
+</table> 
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+

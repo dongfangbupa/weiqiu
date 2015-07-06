@@ -1,0 +1,117 @@
+{% extends 'layout.html'%}
+{% block title %}message{% endblock %}
+{% block header %}
+<style>
+ul{
+    list-style: none;
+}
+label{
+    font-weight: normal;
+
+    
+}
+
+.title-wrapper{
+    width: 60%;
+    margin: 0 auto;
+}
+.title-from{
+    float: left;
+}
+.title-reply{
+    float: right;
+}
+
+.reply-right, .reply-left{
+    border: 1px solid blue;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+}
+.reply-right{
+    float: right;
+    background: rgb(244,230,214);
+    border-color: rgb(244,230,214);;
+}
+.reply-left{
+    float: left;
+    background: gray;
+    border-color: gray;
+}
+
+.ul-reply{
+    width: 60%;
+    margin: 0 auto;
+}
+.ul-reply > li{
+    width: 60%;
+}
+nav{
+    margin-bottom: 20px;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="title-wrapper">
+    <div class="title-from">From Whom: {{user_name}}</div>
+    <div class="title-reply">Reply From Me:</div>
+    <div style="clear:both"></div>
+</div>
+<ul class="ul-reply">
+    {% for message in messages %}
+    {% if message.status == 0 %}
+    <li class="reply-right">
+        <div>{{message.description}}</div>
+        <div>{{message.send_time}}</div>
+    </li>
+    {% else %}
+    <li class="reply-left">
+        <div>{{message.description}}</div>
+        <div>{{message.send_time}}</div>
+        {% endif %}
+    </li>
+    {% endfor %}
+    <li style="clear:both"></li>
+    <li style="text-align:right"><button class="btn btn-warning" data-id="{{user_id}}" data-toggle="modal" data-target="#replyModal" id="replyBtn">回复</button></li>
+</ul>
+<div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" datadrop="static">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <textarea class="form-control" rows="4" id="description"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="reply">Reply</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+$('#reply').on('click', function(e){
+    $.ajax({
+        url: '/clevel/send_user_message',
+        type: 'post',
+        dataType: 'json',
+        data:{receiver: $('#replyBtn').data('id'),description:$('#description').val()}
+
+    })
+    .done(function(data){
+        if(data.ret == 0){
+            $('#replyModal').modal('hide');
+            window.location.href = '/message_detail?user_id=' + $('#replyBtn').data('id');
+        }else{
+            alert('回复消息失败!');
+        }
+
+    })
+    .fail(function(err){
+
+    })
+});
+</script>
+{% endblock %}
+

@@ -1,0 +1,58 @@
+{% extends 'layout.html'%}
+{% block title %}我的团队{% endblock %}
+{% block header %}
+<style type="text/css">
+    ul{
+        list-style: none;
+    }
+    .form-group{
+        padding: 17px;
+    }
+    .common{
+        margin-top: 40px;
+    }
+    .hint{
+        border:1px solid rgb(79,129,189);
+        border-radius: 5px;
+        height: 50px;
+        width: 300px;
+
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="col-md-6 common">
+    <p>我的团队</p>
+    <ul>
+        <li>C-Level团队</li>
+        <li>Cat团队</li>
+        <li>Dog团队</li>
+        <li>Sheep团队</li>
+    </ul>
+</div>
+<div class="col-md-6 common">
+    <span class="hint">
+        Join in a Team Platform: Welcome to this team communication platform. Here you can  better communicate with your team members and keep track all of your communications. This is going to be a good way to show the VC of your initiatives . Besides, on this platform , you will have access to specific sources relevant to your project.
+    </span>
+     <div class="form-horizontalm" id="form">
+      <div class="form-group">
+        <label for="teamAccount" class="col-sm-4 control-label">Team Account</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" id="teamAccount" name="first_name" value="">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-sm-4 control-label">Password</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" id="password" name="last_name" value="">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-5 col-sm-7">
+          <button class="btn btn-warning" >Join in</button>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
