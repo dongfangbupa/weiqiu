@@ -223,10 +223,10 @@ class IdeaMessage(Entity):
     send_time = Field(DateTime, default=datetime.datetime.now)
     idea_id = Field(Integer, default=0)
 
-DB_USER = 'lt'
-DB_PASS = 'lt123456'
-HOST = 'localhost'
-DB_DATA = 'qiuzhang'
+DB_USER = '**'
+DB_PASS = '**'
+HOST = '**'
+DB_DATA = '**'
 db_str = 'mysql://%s:%s@%s/%s' % (DB_USER, DB_PASS, HOST, DB_DATA)
 
 engine = create_engine(db_str, isolation_level="READ UNCOMMITTED", pool_size=1000)
