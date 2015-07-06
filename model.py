@@ -226,7 +226,7 @@ class IdeaMessage(Entity):
 DB_USER = '**'
 DB_PASS = '**'
 HOST = '**'
-DB_DATA = '**'
+DB_DATA = '***'
 db_str = 'mysql://%s:%s@%s/%s' % (DB_USER, DB_PASS, HOST, DB_DATA)
 
 engine = create_engine(db_str, isolation_level="READ UNCOMMITTED", pool_size=1000)
